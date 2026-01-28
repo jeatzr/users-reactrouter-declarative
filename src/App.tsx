@@ -4,6 +4,7 @@ import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import Users from "./pages/Users";
 import UserDetail from "./pages/UserDetail";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route index element={<Users />} />
           <Route path=":userId" element={<UserDetail />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,20 +1,33 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { useState } from "react";
-import { useEffect } from "react";
-import type { User } from "../types/interfaces";
 import { getUsers } from "../services/usersService";
+import type { User } from "../types/User";
 
 function Users() {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function setUsersFuncion(): Promise<User[]> {
-      const users: User[] = await getUsers();
-      return users;
-    }
-    setUsersFuncion().then((users) => setUsers(users));
+    let isMounted = true;
+
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+        const data = await getUsers();
+        if (isMounted) setUsers(data);
+      } catch (err) {
+        if (isMounted) setError("Failed to load users. ERR:" + err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchUsers();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading) return <p>Loading users...</p>;

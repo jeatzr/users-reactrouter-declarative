@@ -1,73 +1,141 @@
-# React + TypeScript + Vite
+# React Router – Declarative Routing Example
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple React application that demonstrates how to use **React Router in declarative mode** to manage navigation between pages and fetch data inside components.
 
-Currently, two official plugins are available:
+It is intended as an educational example for learning the basics of client-side routing in React.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Declarative routing with `BrowserRouter`, `Routes` and `Route`
+- Nested routes (`/users` and `/users/:userId`)
+- Dynamic route parameters
+- Data fetching using `useEffect`
+- Basic loading and error handling
+- 404 page for non-existing routes
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🗂️ Application Routes
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Path             | Description          |
+| ---------------- | -------------------- |
+| `/`              | Home page            |
+| `/about`         | About page           |
+| `/users`         | Users list           |
+| `/users/:userId` | User detail page     |
+| `\*`             | 404 – Page Not Found |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🧭 Routing Mode
+
+This project uses **React Router in declarative mode**, meaning:
+
+- Routes are defined using JSX (`<Routes>` and `<Route>`)
+- Data fetching is handled **inside components**
+- Navigation and data loading are separate concerns
+
+This approach is ideal for understanding the fundamentals before moving to **data routers**.
+
+---
+
+## 🔌 Backend API Requirement (IMPORTANT)
+
+⚠️ **This application will NOT work without the backend API.**
+
+The frontend depends on a REST API developed in the **Python / FastAPI course**.
+
+### Required API
+
+The API must be running locally and expose at least the following endpoints:
+
+```http
+GET http://127.0.0.1:8000/users/
+GET http://127.0.0.1:8000/users/{id}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- You can use the [API created in FastApi from this link](https://github.com/jeatzr/python_materiales/tree/main/U3/02_fastapi_sqlalchemy)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Example user object
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```json
+{
+  "id": 1,
+  "name": "Vicent",
+  "surname": "Foo",
+  "age": 30,
+  "email": "vicent.foo@example.com"
+}
 ```
+
+Make sure the FastAPI server is running **before starting the React app**.
+
+---
+
+## ▶️ How to run the project
+
+- You can download the the [API created in FastApi from this link](https://github.com/jeatzr/python_materiales/tree/main/U3/02_fastapi_sqlalchemy)
+
+### 1️⃣ Start the FastAPI backend
+
+From the Python project:
+
+```bash
+fastapi dev main.py
+```
+
+The API should be available at:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+### 2️⃣ Install frontend dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3️⃣ Start the React application
+
+```bash
+npm run dev
+```
+
+---
+
+## 📚 Learning Goals
+
+By working with this project, students will learn:
+
+- How declarative routing works in React
+- How to define nested and dynamic routes
+- How to read route parameters using `useParams`
+- How to fetch data inside components
+- How to handle navigation errors (404 pages)
+
+---
+
+## 🔜 Next Steps
+
+After completing this project, the next step is to refactor it using:
+
+- **React Router Data Routers**
+- `loader` functions
+- `useLoaderData`
+- Centralized error handling with `errorElement`
+
+---
+
+## 🧑‍🏫 Notes for Students
+
+This project is intentionally kept simple to focus on routing concepts.  
+Advanced solutions (custom hooks, loaders, caching libraries) will be introduced later.
+
+---
